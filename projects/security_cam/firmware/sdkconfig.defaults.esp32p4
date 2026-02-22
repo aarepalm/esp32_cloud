@@ -1,0 +1,13 @@
+# ESP32-P4 specific sdkconfig — ESP32-P4-FunctionalEVBoard
+# Applied after sdkconfig.defaults, before sdkconfig.defaults.local
+# Phase 2 — stub until P4 bring-up begins
+
+# CPU — P4 HP core at 400MHz
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_400=y
+
+# PSRAM — P4 has large on-chip RAM, external PSRAM details TBD
+# CONFIG_SPIRAM=n  # Uncomment if P4 board lacks external PSRAM
+
+# WiFi via esp_hosted (ESP32-C6 companion chip over SDIO)
+# esp_hosted component must be in the component path
+# CONFIG_ESP_HOSTED_SDIO_CLK=... (pin assignments TBD from P4 board schematic)

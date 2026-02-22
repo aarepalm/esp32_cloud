@@ -1,0 +1,52 @@
+menu "Security Camera Configuration"
+
+    config WIFI_SSID
+        string "WiFi SSID"
+        default "your-wifi-ssid"
+        help
+            SSID of the WiFi network to connect to.
+
+    config WIFI_PASSWORD
+        string "WiFi Password"
+        default "your-wifi-password"
+        help
+            Password for the WiFi network.
+
+    config DEVICE_ID
+        string "Device ID"
+        default "esp32-eye-01"
+        help
+            Unique device identifier included in clip filenames and S3 paths.
+
+    config LAMBDA_PRESIGN_URL
+        string "Lambda presign function URL"
+        default "https://your-lambda-function-url/presign"
+        help
+            HTTPS URL of the Lambda Function URL that returns presigned S3 PUT URLs.
+            Format: https://<id>.lambda-url.eu-north-1.on.aws/presign
+
+    config MOTION_THRESHOLD
+        int "Motion detection threshold (changed pixels)"
+        default 2000
+        range 1 76800
+        help
+            Number of changed pixels in the QVGA (320x240 = 76800 pixel) grayscale
+            frame required to trigger recording. Lower = more sensitive.
+            2000 = ~2.6% of frame, good starting point for indoor cameras.
+
+    config MAX_CLIP_SECONDS
+        int "Maximum clip length (seconds)"
+        default 60
+        range 5 120
+        help
+            Clip is closed and a new one started if motion continues past this duration.
+
+    config RECORD_FPS
+        int "Recording frame rate (fps)"
+        default 10
+        range 1 30
+        help
+            Target frame rate during RECORD mode. Actual rate depends on camera
+            and SD card speed.
+
+endmenu

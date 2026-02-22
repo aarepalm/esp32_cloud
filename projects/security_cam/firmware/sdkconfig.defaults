@@ -1,0 +1,37 @@
+# Common sdkconfig defaults — safe to commit (no credentials)
+# Applied to all targets before the target-specific layer.
+
+# TLS — use full CA bundle so we can verify AWS certificates
+CONFIG_MBEDTLS_CERTIFICATE_BUNDLE=y
+CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_FULL=y
+
+# PSRAM — enable; exact mode set per target
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_USE_MALLOC=y
+
+# FAT filesystem for SD card
+CONFIG_FATFS_LFN_HEAP=y
+CONFIG_FATFS_MAX_LFN=255
+
+# FreeRTOS task stack sizes — generous defaults for camera + network tasks
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+
+# Partition table — use "single factory app, no OTA" with a 3MB app partition
+# The default 1MB partition is too small once WiFi + HTTPS + FATFS are all included.
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# Camera: enable PSRAM DMA mode on S3 — avoids bounce-buffer path where event
+# queue depth=1 causes guaranteed VSYNC-OVF and camera task hang on S3-EYE.
+CONFIG_CAMERA_PSRAM_DMA=y
+
+# Logging
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+
+# App-level config — placeholders overridden in sdkconfig.defaults.local
+CONFIG_WIFI_SSID="your-wifi-ssid"
+CONFIG_WIFI_PASSWORD="your-wifi-password"
+CONFIG_DEVICE_ID="esp32-eye-01"
+CONFIG_LAMBDA_PRESIGN_URL="https://your-lambda-function-url/presign"
+CONFIG_MOTION_THRESHOLD=6144
+CONFIG_MAX_CLIP_SECONDS=60
+CONFIG_RECORD_FPS=10

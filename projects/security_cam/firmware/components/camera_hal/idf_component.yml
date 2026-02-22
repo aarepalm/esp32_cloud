@@ -1,0 +1,5 @@
+version: "1.0.0"
+description: "Camera Hardware Abstraction Layer"
+dependencies:
+  espressif/esp32-camera:
+    version: "^2.0.0"

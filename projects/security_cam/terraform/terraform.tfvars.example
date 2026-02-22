@@ -1,0 +1,7 @@
+alert_email = "your-email@example.com"
+
+# Cognito gallery login credentials
+# These are the username and password used to log into the web gallery.
+# Password must be at least 8 characters with uppercase, lowercase, digit and symbol.
+cognito_username = "admin"
+cognito_password = "ChangeMe123!"

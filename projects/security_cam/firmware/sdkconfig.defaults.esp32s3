@@ -1,0 +1,19 @@
+# ESP32-S3 specific sdkconfig — ESP32-S3-EYE board
+# Applied after sdkconfig.defaults, before sdkconfig.defaults.local
+
+# Console — route stdin/stdout through native USB Serial/JTAG (ttyACM0)
+# ESP32-S3-EYE has no separate USB-UART chip; UART0 is not wired to USB.
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+
+# CPU
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_240=y
+
+# Flash
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+
+# PSRAM — OPI PSRAM on S3-EYE
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+
+# Camera pin assignments are hardcoded in camera_hal_s3.c (board-specific constants).
+# esp_camera component does not expose pin Kconfig symbols.
