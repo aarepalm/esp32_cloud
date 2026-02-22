@@ -27,7 +27,7 @@ to AWS S3, sends Gmail alerts, and serves a Cognito-protected web gallery.
 
 ## Status
 
-Phase 1 (firmware + S3 upload + email) — complete
-Phase 2 (LCD UI + button control) — complete
-Phase 3 (web gallery + keep/delete) — complete
-Phase 4 (ESP32-P4 port) — future
+- Phase 1 (firmware + S3 upload + email) — complete
+- Phase 2 (LCD UI + button control) — complete
+- Phase 3 (web gallery + keep/delete) — complete
+- Phase 4 (ESP32-P4 port) — future
