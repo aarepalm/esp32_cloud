@@ -1,0 +1,26 @@
+# ESP-IDF framework (install separately, ~1 GB)
+esp-idf/
+esp-idf-tools/
+
+# Other projects (not ready to publish yet)
+projects/esp32_telemetry/
+projects/hello_world/
+projects/rgb_web/
+
+# Claude session state
+.claude/
+
+# Test media captured locally
+cam_clips/
+pics/
+
+# Simple state files
+on.txt
+off.txt
+
+# Qt Creator project files
+*.creator
+*.creator.user
+*.config
+*.files
+*.includes
