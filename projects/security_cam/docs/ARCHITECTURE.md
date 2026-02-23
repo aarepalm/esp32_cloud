@@ -79,8 +79,12 @@
 
 ### Presign endpoint (device → S3)
 
-- `GET /` on API Gateway is unauthenticated — the device has no JWT
-- Lambda generates short-lived presigned PUT URLs (15 min) scoped to the specific
+- `GET /` on API Gateway requires an `x-api-key` header matching a shared secret
+- Secret is stored in Lambda env var (`API_KEY`) and in `sdkconfig.defaults.local`
+  on the device (`CONFIG_API_KEY`); never committed to the repo
+- API Gateway HTTP API v2 does not support native API keys; the check is in the
+  Lambda itself — wrong or missing key returns HTTP 403 before any S3 call
+- Lambda generates short-lived presigned PUT URLs (5 min) scoped to the specific
   key the device requested
 - Presigned URL is single-use by convention; S3 enforces expiry
 - Lambda IAM role has `s3:PutObject` on the clips bucket only

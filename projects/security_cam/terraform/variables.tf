@@ -13,6 +13,12 @@ variable "alert_email" {
   type        = string
 }
 
+variable "presign_api_key" {
+  description = "Shared secret the ESP32 sends as x-api-key header to the presign endpoint"
+  type        = string
+  sensitive   = true
+}
+
 variable "cognito_username" {
   description = "Username for the gallery web login"
   type        = string

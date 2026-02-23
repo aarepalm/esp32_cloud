@@ -18,10 +18,19 @@ import os
 s3 = boto3.client('s3')
 
 BUCKET     = os.environ['CLIP_BUCKET']
+API_KEY    = os.environ['API_KEY']
 PUT_EXPIRY = 300   # 5 minutes — plenty of time for the device to upload
 
 
 def handler(event, context):
+    headers = event.get('headers') or {}
+    if headers.get('x-api-key') != API_KEY:
+        return {
+            'statusCode': 403,
+            'headers': {'Content-Type': 'application/json'},
+            'body': json.dumps({'error': 'Forbidden'}),
+        }
+
     params = event.get('queryStringParameters') or {}
     clip   = params.get('clip')
     thumb  = params.get('thumb')

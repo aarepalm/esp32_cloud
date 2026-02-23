@@ -28,6 +28,7 @@ resource "aws_lambda_function" "presign" {
   environment {
     variables = {
       CLIP_BUCKET = aws_s3_bucket.clips.bucket
+      API_KEY     = var.presign_api_key
     }
   }
 

@@ -32,6 +32,7 @@ CONFIG_WIFI_SSID="your-wifi-ssid"
 CONFIG_WIFI_PASSWORD="your-wifi-password"
 CONFIG_DEVICE_ID="esp32-eye-01"
 CONFIG_LAMBDA_PRESIGN_URL="https://your-lambda-function-url/presign"
+CONFIG_API_KEY="your-api-key"
 CONFIG_MOTION_THRESHOLD=6144
 CONFIG_MAX_CLIP_SECONDS=60
 CONFIG_RECORD_FPS=10

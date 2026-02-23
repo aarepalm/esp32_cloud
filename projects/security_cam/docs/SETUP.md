@@ -70,6 +70,7 @@ CONFIG_WIFI_SSID="your-wifi-ssid"
 CONFIG_WIFI_PASSWORD="your-wifi-password"
 CONFIG_LAMBDA_PRESIGN_URL="https://xxx.execute-api.eu-north-1.amazonaws.com"
 CONFIG_DEVICE_ID="cam01"
+CONFIG_API_KEY="your-presign-api-key"
 ```
 
 The presign URL comes from Terraform output (step 4). You can build without it first
@@ -118,9 +119,12 @@ Edit `terraform.tfvars`:
 
 ```hcl
 alert_email      = "your-gmail@gmail.com"
+presign_api_key  = "..."               # openssl rand -hex 32
 cognito_username = "admin"
 cognito_password = "YourPassword123!"  # min 8 chars, upper+lower+digit+symbol
 ```
+
+The `presign_api_key` must match `CONFIG_API_KEY` in `sdkconfig.defaults.local`.
 
 ### 4b. Deploy
 

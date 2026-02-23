@@ -74,6 +74,7 @@ static esp_err_t get_presigned_urls(const char *clip_name)
         ESP_LOGE(TAG, "esp_http_client_init failed — bad URL? (%s)", CONFIG_LAMBDA_PRESIGN_URL);
         return ESP_ERR_INVALID_ARG;
     }
+    esp_http_client_set_header(client, "x-api-key", CONFIG_API_KEY);
     esp_err_t err = esp_http_client_perform(client);
     int status = esp_http_client_get_status_code(client);
     esp_http_client_cleanup(client);
