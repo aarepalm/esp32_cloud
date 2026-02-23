@@ -87,6 +87,18 @@ consecutive failed checks are required before recording stops.
 
 ## AWS Account Constraints
 
+### API key auth for the presign endpoint
+
+API Gateway HTTP API v2 does not support native API keys (that is a REST API v1
+feature). To protect the presign endpoint, the check lives in the Lambda itself:
+the device sends an `x-api-key` header, the Lambda compares it against an `API_KEY`
+environment variable, and returns HTTP 403 if they don't match.
+
+The key is stored in `terraform.tfvars` (gitignored) as `presign_api_key` and on
+the device in `sdkconfig.defaults.local` (gitignored) as `CONFIG_API_KEY`. Generate
+a strong value with `openssl rand -hex 32`. This is the same pattern used in the
+telemetry project.
+
 ### Lambda Function URLs return 403 on some new accounts
 
 Lambda Function URLs with `authorization_type=NONE` return HTTP 403 on this account
