@@ -30,6 +30,14 @@ alerts, and a Cognito-protected web gallery.
 git clone https://github.com/aarepalm/esp32_cloud.git
 cd esp32_cloud
 git clone --recursive --branch v5.4 https://github.com/espressif/esp-idf.git
+
+# macOS only: install Python 3.11 via Homebrew (system Python 3.9 has incompatibilities)
+brew install python@3.11
+mkdir -p /tmp/py-shim && ln -sf /opt/homebrew/bin/python3.11 /tmp/py-shim/python3
+PATH="/tmp/py-shim:$PATH" esp-idf/install.sh esp32s3
+rm -rf /tmp/py-shim
+
+# Linux:
 cd esp-idf && ./install.sh esp32s3 && cd ..
 
 # 2. Activate IDF environment (do this in every new shell)

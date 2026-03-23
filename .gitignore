@@ -10,6 +10,9 @@ projects/rgb_web/
 # Claude session state
 .claude/
 
+# macOS python3 shim for ESP-IDF activation (created by activate.sh)
+.python-shim/
+
 # Test media captured locally
 cam_clips/
 pics/

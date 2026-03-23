@@ -18,7 +18,7 @@ Step-by-step guide to build and deploy the security camera from scratch.
 | Tool | Version | Install |
 |------|---------|---------|
 | ESP-IDF | v5.4 | See step 2 |
-| Terraform | ≥ 1.7 | `apt install terraform` or [terraform.io](https://developer.hashicorp.com/terraform/install) |
+| Terraform | ≥ 1.7 | macOS: `brew install terraform` · Linux: `apt install terraform` · or [terraform.io](https://developer.hashicorp.com/terraform/install) |
 | AWS CLI | v2 | [aws.amazon.com/cli](https://aws.amazon.com/cli/) |
 | Python | 3.x | Bundled with ESP-IDF |
 
@@ -39,9 +39,17 @@ cd esp32_cloud
 
 # Install ESP-IDF v5.4 into the expected location
 git clone --recursive --branch v5.4 https://github.com/espressif/esp-idf.git
-cd esp-idf
-./install.sh esp32s3
-cd ..
+
+# macOS: system Python 3.9 has importlib.metadata bugs with ESP-IDF's namespace packages.
+# Install Python 3.11 via Homebrew and shim it as python3 for the install only:
+brew install python@3.11
+mkdir -p /tmp/py-shim && ln -sf /opt/homebrew/bin/python3.11 /tmp/py-shim/python3
+PATH="/tmp/py-shim:$PATH" esp-idf/install.sh esp32s3
+rm -rf /tmp/py-shim
+# activate.sh handles the shim automatically for all future activations.
+
+# Linux:
+# cd esp-idf && ./install.sh esp32s3 && cd ..
 ```
 
 Activate the environment (do this in every new shell session):
@@ -89,11 +97,17 @@ idf.py build
 Insert the SD card. Connect the ESP32-S3-EYE via USB.
 
 ```bash
+# Linux
 idf.py -p /dev/ttyACM0 flash monitor
+
+# macOS
+idf.py -p /dev/cu.usbmodem* flash monitor
 ```
 
-Port is `/dev/ttyACM0` — the S3-EYE uses built-in USB Serial/JTAG, not an external
-CH340 chip. If the port is busy: `kill $(fuser /dev/ttyACM0)`.
+The S3-EYE uses built-in USB Serial/JTAG, not an external CH340 chip.
+On Linux the port is `/dev/ttyACM0`; on macOS it appears as `/dev/cu.usbmodem<id>`
+(run `ls /dev/cu.usb*` to find the exact name).
+If the port is busy: Linux: `kill $(fuser /dev/ttyACM0)` · macOS: `kill $(lsof -t /dev/cu.usbmodem*)`.
 
 Expected boot output:
 ```
